@@ -5,7 +5,8 @@ export function useSidePanelMessageListener(
   tabId: number | null,
   onUrlChange: () => void,
   onSelectionPrompt: (prompt: string) => void,
-  onImageCapture: (imageData: string) => void
+  onImageCapture: (imageData: string) => void,
+  onAudioCapture: (audioData: string) => void
 ): void {
   useEffect(() => {
     if (!tabId) {
@@ -38,6 +39,12 @@ export function useSidePanelMessageListener(
               onImageCapture(message.payload.imageData);
               sendResponse("OK");
               break;
+
+            case "cs_audio-capture":
+              onAudioCapture(message.payload.audioData);
+              sendResponse("OK");
+              break; 
+               
             case "cs_check-side-panel-visible":
               sendResponse(true);
               break;

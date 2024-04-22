@@ -58,6 +58,8 @@ export function SidePanel(): JSX.Element {
     config: ModelConfig;
   } | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
+  const [audioData, setAudioData] = useState<string | null>(null);
+
   const [tabId, setTabId] = useState<number | null>(null);
 
   const manifest = chrome.runtime.getManifest();
@@ -194,12 +196,15 @@ export function SidePanel(): JSX.Element {
             queryMode,
             prompt,
             prevMessages,
-          } as AppMessagePayloadGeneral | AppMessagePayloadWebpageTextQA,
+            audioData
+          } as AppMessagePayloadGeneral,
         } as AppMessageBotExecute);
       }
     },
-    [analyzeWebpage, imageData, swPort, webpageMarkdown]
-  );
+
+    [analyzeWebpage, imageData, audioData, swPort, webpageMarkdown]
+  
+    );
 
   const handleStopPromptProcessing = useCallback(() => {
     swPort?.postMessage({
@@ -215,6 +220,7 @@ export function SidePanel(): JSX.Element {
     setWebpageMarkdown("");
     setMessages([]);
     setImageData(null);
+    setAudioData(null);
   }, []);
 
   const updateModelConfig = useCallback(
@@ -260,7 +266,6 @@ export function SidePanel(): JSX.Element {
       if (modelProvider !== selectedModel?.modelProvider) {
         clearSessionState();
       }
-
       await saveSelectedModelId(currSelectedModelId);
     },
 
@@ -284,6 +289,7 @@ export function SidePanel(): JSX.Element {
     if (lastSelectedModelId) {
       setSelectedModelId(lastSelectedModelId);
     }
+
   }, [clearSessionState]);
 
   const populateModelSelect = (aiModelConfig: AIModelConfig | null) => {
@@ -339,11 +345,16 @@ export function SidePanel(): JSX.Element {
     setImageData(imageData);
   }, []);
 
+  const handleAudioCapture = useCallback((audioData: string) => {
+    setAudioData(audioData);
+  }, []);
+
   useSidePanelMessageListener(
     tabId,
     handleUrlChange,
     handleSelectionPrompt,
-    handleImageCapture
+    handleImageCapture,
+    handleAudioCapture
   );
 
   useEffect(() => {
@@ -375,6 +386,7 @@ export function SidePanel(): JSX.Element {
         analyzeWebpage,
         clearChatContext,
         handleImageCapture,
+        handleAudioCapture
       }}
     >
       <Paper
@@ -399,14 +411,15 @@ export function SidePanel(): JSX.Element {
           <ActionIcon variant="transparent" onClick={openSettings}>
             <IconSettings size="24px" />
           </ActionIcon>
+          
           <Group sx={{}}>
-            <Text size="sm">v{version}</Text>
             <Badge color="yellow" size="sm">
               BETA
             </Badge>
           </Group>
         </Group>
-        <Select
+
+        {/* <Select
           placeholder="Choose a model"
           nothingFound="No options"
           data={modelSelectOptions}
@@ -441,7 +454,8 @@ export function SidePanel(): JSX.Element {
           <Alert icon={<IconAlertCircle size={16} />} color="red">
             Please capture image
           </Alert>
-        )}
+        )} */}
+
         <ChatUI
           messages={messages}
           disableInput={disableInput}

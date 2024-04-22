@@ -1,5 +1,6 @@
 import { Document } from "langchain/document";
 import { VectorStore } from "langchain/vectorstores/base";
+
 import {
   MODEL_PROVIDER_OPENAI,
   MODEL_PROVIDER_ANTHROPIC,
@@ -26,6 +27,7 @@ export type AppContextType = {
   analyzeWebpage: () => Promise<void>;
   clearChatContext: () => Promise<void>;
   handleImageCapture: (imageData: string) => void;
+  handleAudioCapture: (audioData: string) => void;
 };
 
 export type IndexedData = {
@@ -94,6 +96,17 @@ export type AppMessageImageCapture = {
   };
 };
 
+export type AppMessageAudioCapture = {
+  type: "cs_audio-capture";
+  payload: {
+    audioData: string;
+    // audioData: ArrayBuffer;
+    // format: string;
+    // duration: number;
+    // Add any other properties specific to audio data here
+  };
+};
+
 export type AppMessageTabStateInit = {
   type: "sw_tab-state-init";
 };
@@ -152,6 +165,8 @@ export type AppMessagePayloadGeneral = {
   queryMode: "general";
   prompt: string;
   prevMessages: ChatMessage[];
+  audioData: string;
+
 };
 
 export type AppMessagePayloadWebpageTextQA = {
@@ -190,6 +205,7 @@ export type AppMessage =
   | AppMessageStartPageSnipTool
   | AppMessageSelectionPrompt
   | AppMessageImageCapture
+  | AppMessageAudioCapture
   | AppMessageCheckSidePanelVisible;
 
 export type TabState = {

@@ -13,6 +13,24 @@ const chatPromptTemplate = ChatPromptTemplate.fromMessages([
   ["human", "{input}"],
 ]);
 
+// Next step: Uploading a voice record
+// when the user uploads a file to the extension what will happen is basically this:
+// File gets uploaded to fire-base
+// An internal call happens based on the url sent
+// Small adjustments on the rest api end as well
+
+// Langchain Purpose: to captivate a Large language model, and make it more accurate in answering
+// Conversation Chain:
+
+// {"System Message": "Discussion Context; Example: You're an AI Assistant that helps in retrieving recipes for Food.",
+// "human": "Hi, I need a recipe for Lasagna"}
+// {"System Message": "Discussion Context; Example: You're an AI Assistant that helps in retrieving recipes for Food.",
+// "human": "Hi",
+// "assitant": "Recipe Lasagna"}
+// {"System Message": "Discussion Context; Example: You're an AI Assistant that helps in retrieving recipes for Food.",
+// "human": "Hi",
+// "assitant": "Recipe Lasagna"}
+
 export async function executeGeneralChat(
   model: BaseLanguageModel,
   prompt: string,
@@ -28,7 +46,6 @@ export async function executeGeneralChat(
       returnMessages: true,
     }),
   });
-
   await chain.call(
     {
       input: prompt,

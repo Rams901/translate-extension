@@ -7,7 +7,9 @@
     "build:dev": "vite build",
     "build:prod": "npm run lint && tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "watch": "tsc --watch",
+    "watch:extension": "npm run watch && chrome-extension-reloader"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
@@ -18,6 +20,8 @@
     "@mantine/notifications": "^5.10.5",
     "@tabler/icons-react": "^2.34.0",
     "@xenova/transformers": "^2.12.1",
+    "axios-typescript": "^1.0.2",
+    "firebase-admin": "^11.11.1",
     "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",
     "langchain": "^0.0.212",
@@ -25,10 +29,12 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-error-boundary": "^4.0.11",
+    "react-icons": "^5.0.1",
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.16.0",
     "remark-gfm": "^3.0.1",
     "turndown": "^7.1.2",
+    "uuid": "^9.0.1",
     "zod": "^3.22.4",
     "zod-to-json-schema": "^3.21.4"
   },
@@ -46,6 +52,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "typescript": "^4.6.3",
-    "vite": "^2.9.15"
+    "vite": "^2.9.15",
+    "webpack-chrome-extension-reloader": "^1.3.0"
   }
 }

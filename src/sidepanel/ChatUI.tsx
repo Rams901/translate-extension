@@ -163,7 +163,7 @@ export const ChatUI = ({
         {error && (
           <Notification
             color="red"
-            title="Error"
+            title="ERROR"
             onClose={() => setError("")}
             sx={{
               marginBottom: "8px",
@@ -192,12 +192,12 @@ export const ChatUI = ({
                 color="blue"
                 data={[
                   { label: "General", value: "general" },
-                  { label: "Webpage", value: "webpage-text-qa" },
-                  {
-                    label: "Vision",
-                    value: "webpage-vqa",
-                    disabled: !modelConfig || !modelConfig.hasVision,
-                  },
+                  // { label: "Webpage", value: "webpage-text-qa" },
+                  // {
+                  //   label: "Vision",
+                  //   value: "webpage-vqa",
+                  //   disabled: !modelConfig || !modelConfig.hasVision,
+                  // },
                 ]}
               />
             )}
@@ -230,7 +230,7 @@ export const ChatUI = ({
                 sx={{
                   width: "fit-content",
                   borderStyle: "solid",
-                  borderWidth: "0.5px",
+                  borderWidth: "60px",
                 }}
               >
                 <ActionIcon onClick={clearImageData}>

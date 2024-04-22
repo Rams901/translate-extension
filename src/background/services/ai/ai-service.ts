@@ -23,7 +23,7 @@ import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { Document } from "langchain/document";
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { AIMessage, BaseMessage, HumanMessage } from "langchain/schema";
-
+import {customOllama} from "./custom-llm";
 env.allowLocalModels = false;
 env.backends.onnx.wasm.numThreads = 1;
 
@@ -100,13 +100,14 @@ export class AIService {
     return this.hfEmbeddings;
   }
 
-  getCurrentLLM(tabId: number, streaming: boolean): BaseChatModel {
+  getCurrentLLM(tabId: number, streaming: boolean) {
     const modelProvider = this.getModel(tabId).provider;
     const modelProviderConfig = this.getModelProviderConfig(tabId);
     const modelName = this.getModel(tabId).modelName;
     const modelConfig = modelProviderConfig.chatModels.find(
       (m) => m.modelName === modelName
     );
+
     const temperature = modelConfig?.temperature;
     const maxOutputTokens = modelConfig?.maxOutputTokens;
 
@@ -120,6 +121,7 @@ export class AIService {
         maxRetries: MAX_RETRIES,
       });
     }
+
     if (modelProvider === "anthropic") {
       return new ChatAnthropic({
         modelName,
@@ -132,12 +134,14 @@ export class AIService {
     }
 
     if (modelProvider === "ollama") {
-      return new ChatOllama({
-        baseUrl: modelProviderConfig.baseUrl,
-        model: modelName,
-        temperature,
-        maxRetries: MAX_RETRIES,
-      });
+      
+      return new customOllama({});
+      // return new ChatOllama({
+      //   baseUrl: modelProviderConfig.baseUrl,
+      //   model: "llama2:7b-text-q2_K",
+      //   temperature,
+      //   maxRetries: MAX_RETRIES,
+      // });
     }
 
     throw new Error("Unsupported model provider: " + modelProvider);

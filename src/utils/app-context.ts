@@ -8,4 +8,6 @@ export const AppContext = React.createContext<AppContextType>({
   analyzeWebpage: async () => {},
   clearChatContext: async () => {},
   handleImageCapture: async (imageData: string) => imageData,
+  handleAudioCapture: async (audioData: string) => audioData,
+
 });

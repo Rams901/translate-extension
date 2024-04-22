@@ -1,3 +1,5 @@
+/restapi_backend/assets
+/restapi_backend/trns_env
 # Logs
 logs
 *.log

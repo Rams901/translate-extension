@@ -5,17 +5,17 @@ import { defineManifest } from "@crxjs/vite-plugin";
 
 import packageJson from "./package.json";
 
-const APP_NAME = "Webgati AI";
+const APP_NAME = "AI Translator";
 
 const { version } = packageJson;
 
 const [major, minor, patch] = version.replace(/[^\d.-]+/g, "").split(/[.-]/);
 
 const icons = {
-  "16": "public/icon.png",
-  "32": "public/icon.png",
-  "48": "public/icon.png",
-  "128": "public/icon.png",
+  "16": "public/icon_1.png",
+  "32": "public/icon_1.png",
+  "48": "public/icon_1.png",
+  "128": "public/icon_1.png",
 };
 
 export default defineManifest(async (env) => ({

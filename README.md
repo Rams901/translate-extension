@@ -1,14 +1,15 @@
 ## Front-end
-- upload dist folder to add extension
+- Upload dist folder to add extension
 
 ## Backend
-- go to restapi_backend directory on a new terminal
+- Clone [restapi_backend](https://github.com/Rams901/translate-extension-backend)
 - Create a venv
 - install requirements
-- run: python main.py
+- run: python translate-extension-backend/main.py
 
-  ## Current features
-  - Translation to Eng from French and Arabic
-  - Firebase Upload Chat History
-  - Frontend Setup for Audio Record and Files. Requires the actual work.
+## Current features
+- Translation to English from French and Arabic
+- Transcribe uploaded audio records.
+- Firebase Upload chat history
+- Frontend setup for audio record and files.
     
